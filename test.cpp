@@ -6,11 +6,13 @@ using namespace std;
 
 int main()
 {
-    User st("tin","05/11/2001",1500000);
+    Staff st("tin","asd","05/11/2001","asd", 1500000);
     st.display();
-    st.edit("Huynh Duc Tin","05/11/2001",1500000);
+    st.edit("Huynh Duc Tin","asd","05/11/2001","asd",1500000);
     cout << "EDITED : " << endl;
     st.display();
+    Computer cpt;
+
     system("pause");
     return 0;
 }

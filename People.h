@@ -12,6 +12,7 @@ public:
     ~People();
     virtual void display();
     virtual void edit();
+    virtual void input();
 };
 
 People::People(string name = "none", string startDay = "none", string code = "none")
@@ -23,6 +24,7 @@ People::People(string name = "none", string startDay = "none", string code = "no
 People::~People(){}
 void People::display(){return;}
 void People::edit(){return;}
+void People::input(){return;}
 
 #endif
 
