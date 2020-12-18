@@ -133,13 +133,70 @@ void Manager::add()
         this->listStaff[this->numOfStaff - 1]->input();
     }
     else
+    {
         cout << "wrong option!\n";
+        system("pause");
+    }
     system("cls");
     cout << "ADD SUCCESSFULLY! \n";
 }
 void Manager::remove()
 {
     system("cls");
+    cout << "1. remove computer \n";
+    cout << "2. remove people \n";
+    cout << "Enter your optioon : \n";
+    int choose; cin >> choose;
+    int countc = 0, counts = 0, countu = 0;
+    if(choose == 1)
+    {
+        cout << "Enter the code : \n";
+        string code; cin >> code;
+        for(int i = 0; i < numOfComputer; i++)
+        {
+            if(this->listComputer[i]->getCode() == code)
+            {
+                countc++;
+                for(int j = i; j < this->numOfComputer - 1; j++)
+                    this->listComputer[j] = this->listComputer[j + 1];
+            }   
+        }
+    }
+    else if(choose == 2)
+    {
+        cout << "Enter the code : \n";
+        string code; cin >> code;
+        for(int i = 0; i < numOfStaff; i++)
+        {
+            if(this->listStaff[i]->getCode() == code)
+            {
+                counts++;
+                for(int j = i; j < this->numOfStaff - 1; j++)
+                    this->listStaff[j] = this->listStaff[j + 1];
+            }   
+        }
+        for(int i = 0; i < numOfStaff; i++)
+        {
+            if(this->listUser[i]->getCode() == code)
+            {
+                countu++;
+                for(int j = i; j < this->numOfUser - 1; j++)
+                    this->listUser[j] = this->listUser[j + 1];
+            }   
+        }
+    }
+    else
+    {
+        cout << "wrong option!\n";
+        system("pause");
+    }
+    system("cls");
+    if( countc == 0)
+    {
+        cout << "Remove " << counts << " staff(s), " << countu << " user(s) out of system!\n";
+    }
+    else
+        cout << "Remove " << countc << " computer out of system!\n";    
 }
 void Manager::search()
 {
@@ -206,9 +263,9 @@ void Manager::search()
         }
         
     }
-    else
-    {
+    else{
         cout << "wrong option!\n";
+        system("pause");
     }
     
     system("pause");
@@ -220,7 +277,7 @@ void Manager::edit()
     cout << "1. edit computer's detail \n";
     cout << "2. edit people's detail \n";
     cout << "Enter your option : \n";
-    int choose; cin >> choose;
+    int choose, count = 0; cin >> choose;
     if(choose == 1)
     {
         string code;
@@ -229,6 +286,7 @@ void Manager::edit()
         {
             if(this->listComputer[i]->getCode() == code)
             {
+                count++;
                 cout << "Enter new detail : \n";
                 this->listComputer[i]->edit();
             }
@@ -242,6 +300,7 @@ void Manager::edit()
         {
             if(this->listStaff[i]->getCode() == code)
             {
+                count++;
                 cout << "Enter new detail : \n";
                 this->listStaff[i]->edit();
             }
@@ -250,15 +309,22 @@ void Manager::edit()
         {
             if(this->listUser[i]->getCode() == code)
             {
+                count++;
                 cout << "Enter new detail : \n";
                 this->listUser[i]->edit();
             }
         }
     }
     else
-        cout << "wrong option! \n";
+    {
+        cout << "wrong option!\n";
+        system("pause");
+    }
     system("cls");
-    cout << "EDIT SUCCESSFULLY!\n";
+    if(count > 0)
+        cout << "EDIT SUCCESSFULLY!\n";
+    else
+        cout << "NO USER MATCH !";
 }
 
 #endif
