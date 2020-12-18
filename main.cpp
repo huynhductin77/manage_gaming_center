@@ -7,3 +7,9 @@ int main()
     CHANAS_GAMING_CENTER.loop();
     return 0;
 }
+
+// fix string
+// remove 
+// edit (OK)
+// search (OK)
+

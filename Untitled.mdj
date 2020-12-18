@@ -1118,7 +1118,7 @@
 											"top": 302,
 											"width": 215,
 											"height": 13,
-											"text": "-Free: bool",
+											"text": "-Free: string",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1434,7 +1434,7 @@
 											"top": 563,
 											"width": 239,
 											"height": 13,
-											"text": "-ListComputer: COMPUTER*",
+											"text": "-ListComputer: COMPUTER**",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1451,7 +1451,7 @@
 											"top": 578,
 											"width": 239,
 											"height": 13,
-											"text": "-ListUser: USER*",
+											"text": "-ListUser: USER**",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1468,7 +1468,7 @@
 											"top": 593,
 											"width": 239,
 											"height": 13,
-											"text": "-ListStaff: STAFF*",
+											"text": "-ListStaff: STAFF**",
 											"horizontalAlignment": 0
 										}
 									],
@@ -2878,7 +2878,7 @@
 							},
 							"name": "Free",
 							"visibility": "private",
-							"type": "bool"
+							"type": "string"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3105,7 +3105,7 @@
 							},
 							"name": "ListComputer",
 							"visibility": "private",
-							"type": "COMPUTER*"
+							"type": "COMPUTER**"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3115,7 +3115,7 @@
 							},
 							"name": "ListUser",
 							"visibility": "private",
-							"type": "USER*"
+							"type": "USER**"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -3125,7 +3125,7 @@
 							},
 							"name": "ListStaff",
 							"visibility": "private",
-							"type": "STAFF*"
+							"type": "STAFF**"
 						}
 					],
 					"operations": [

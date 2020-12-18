@@ -14,8 +14,10 @@ public:
     User(const User* us);
     ~User();
     void display();
-    void edit(string name, string code, string startDay, long balance);
+    void edit();
     void input();
+    string getCode();
+    string getName();
 };
 
 User::User(string name = "none", string code = "none", string startDay = "1/1/1990", long balance = 0)
@@ -37,13 +39,7 @@ void User::display()
     cout << "                   Name : " << this->name << endl;
     cout << "                   Start Day : " << this->startDay << endl;
     cout << "                   Balance : " << this->balance << endl;
-}
-void User::edit(string name, string code, string startDay, long balance)
-{
-    this->name = name;
-    this->startDay = startDay;
-    this->balance = balance;
-    this->code = code;
+    cout << "                   Code : " << this->code << endl;
 }
 void User::input()
 {
@@ -52,6 +48,20 @@ void User::input()
     cout << "Name : \n"; cin >> this->name;
     cout << "Balance : \n"; cin >> this->balance;
 }
-
+string User::getCode()
+{
+    return this->code;
+}
+string User::getName()
+{
+    return this->name;
+}
+void User::edit()
+{
+    cout << "Name : \n"; cin >> this->name;
+    cout << "Code : \n"; cin >> this->code;
+    cout << "Start Day : \n"; cin >> this->startDay;
+    cout << "Balance : \n"; cin >> this->balance;
+}
 
 #endif

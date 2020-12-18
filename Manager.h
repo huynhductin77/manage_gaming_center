@@ -35,12 +35,7 @@ Manager::Manager(int numOfStaff = 0, int numOfUser = 0, int numOfComputer = 0)
     this->listUser = new User*[numOfUser];
     this->listStaff = new Staff*[numOfStaff];
 }
-Manager::~Manager()
-{
-    delete[] this->listComputer;
-    delete[] this->listStaff;
-    delete[] this->listUser;
-}
+Manager::~Manager(){}
 void Manager::menu()
 {
     cout << "------MENU----------" << endl;
@@ -139,6 +134,8 @@ void Manager::add()
     }
     else
         cout << "wrong option!\n";
+    system("cls");
+    cout << "ADD SUCCESSFULLY! \n";
 }
 void Manager::remove()
 {
@@ -147,10 +144,121 @@ void Manager::remove()
 void Manager::search()
 {
     system("cls");
+    cout << "1. computer search\n";
+    cout << "2. people search\n";
+    cout << "Enter your option : \n";
+    int choose; cin >> choose;
+    if(choose == 1)
+    {
+        cout << "Enter the code : \n";
+        string code; cin >> code;
+        for(int i = 0; i < numOfComputer; i++)
+        {
+            if(this->listComputer[i]->getCode() == code)
+            {
+                this->listComputer[i]->display();                
+            }
+        }
+    }
+    else if(choose == 2)
+    {
+        cout << "1. By code\n";
+        cout << "2. By Name\n";
+        cout << "Enter your option : \n";
+        int choo; cin >> choo;
+        if(choo == 1)
+        {
+            cout << "Enter the code : \n";
+            string code; cin >> code;
+            for(int i = 0; i < numOfUser; i++)
+            {
+                if(this->listUser[i]->getCode() == code)
+                {
+                    this->listUser[i]->display();       
+                }
+            }
+            for(int i = 0; i < numOfUser; i++)
+            {
+                if(this->listStaff[i]->getCode() == code)
+                {
+                    this->listStaff[i]->display();       
+                }
+            }
+        }
+        else if(choo == 2)
+        {
+            cout << "Enter the name : \n";
+            string name; cin >> name;
+            for(int i = 0; i < numOfUser; i++)
+            {
+                if(listUser[i]->getCode() == name)
+                    listUser[i]->display();       
+            }
+            for(int i = 0; i < numOfUser; i++)
+            {
+                if(listStaff[i]->getCode() == name)
+                    listStaff[i]->display();       
+            }
+        }
+        else
+        {
+            cout << "wrong option!\n";
+        }
+        
+    }
+    else
+    {
+        cout << "wrong option!\n";
+    }
+    
+    system("pause");
+    system("cls");
 }
 void Manager::edit()
 {
     system("cls");
+    cout << "1. edit computer's detail \n";
+    cout << "2. edit people's detail \n";
+    cout << "Enter your option : \n";
+    int choose; cin >> choose;
+    if(choose == 1)
+    {
+        string code;
+        cout << "Enter code : \n"; cin >> code;
+        for(int i = 0; i < numOfComputer; i++)
+        {
+            if(this->listComputer[i]->getCode() == code)
+            {
+                cout << "Enter new detail : \n";
+                this->listComputer[i]->edit();
+            }
+        }
+    }
+    else if(choose == 2)
+    {
+        string code;
+        cout << "Enter code : \n"; cin >> code;
+        for(int i = 0; i < numOfStaff; i++)
+        {
+            if(this->listStaff[i]->getCode() == code)
+            {
+                cout << "Enter new detail : \n";
+                this->listStaff[i]->edit();
+            }
+        }
+        for(int i = 0; i < numOfStaff; i++)
+        {
+            if(this->listUser[i]->getCode() == code)
+            {
+                cout << "Enter new detail : \n";
+                this->listUser[i]->edit();
+            }
+        }
+    }
+    else
+        cout << "wrong option! \n";
+    system("cls");
+    cout << "EDIT SUCCESSFULLY!\n";
 }
 
 #endif

@@ -15,8 +15,10 @@ public:
     Computer(const Computer* cpt);
     ~Computer();
     void display();
-    void edit(string free, string startDay, string code);
+    void edit();
     void input();
+    string getCode();
+    string getName();
 };
 
 Computer::Computer(string free = "none", string startDay = "none", string code = "none")
@@ -39,11 +41,11 @@ void Computer::display()
     cout << "                   Start Day : " << startDay << endl;
     cout << "                   Code : " << code << endl;
 }
-void Computer::edit(string free = "none", string startDay = "none", string code = "none")
+void Computer::edit()
 {
-    this->free = free;
-    this->startDay = startDay;
-    this->code = code;
+    cout << "Status : \n";cin >> this->free;
+    cout << "Start Day : \n"; cin >> this->startDay;
+    cout << "Code : \n"; cin >>this->code;
 }
 void Computer::input()
 {
@@ -56,6 +58,10 @@ void Computer::input()
     this->code = code;
     this->free = free;
     this->startDay = startDay;
+}
+string Computer::getCode()
+{
+    return this->code;
 }
 
 #endif
