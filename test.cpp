@@ -6,13 +6,9 @@ using namespace std;
 
 int main()
 {
-    Staff st("tin","asd","05/11/2001","asd", 1500000);
-    st.display();
-    st.edit("Huynh Duc Tin","asd","05/11/2001","asd",1500000);
-    cout << "EDITED : " << endl;
-    st.display();
-    Computer cpt;
-
+    string str = "   124HuYnh 1dU23c tin  ";
+    cout << str << endl;
+    formatStr(str);
     system("pause");
     return 0;
 }

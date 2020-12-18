@@ -8,8 +8,7 @@ int main()
     return 0;
 }
 
-// fix string
-// remove 
+// fix string (OK)
+// remove (OK)
 // edit (OK)
-// search (OK)
-
+// search

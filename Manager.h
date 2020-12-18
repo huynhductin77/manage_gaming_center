@@ -156,6 +156,7 @@ void Manager::remove()
         {
             if(this->listComputer[i]->getCode() == code)
             {
+                this->numOfComputer--;
                 countc++;
                 for(int j = i; j < this->numOfComputer - 1; j++)
                     this->listComputer[j] = this->listComputer[j + 1];
@@ -170,6 +171,7 @@ void Manager::remove()
         {
             if(this->listStaff[i]->getCode() == code)
             {
+                this->numOfStaff--;
                 counts++;
                 for(int j = i; j < this->numOfStaff - 1; j++)
                     this->listStaff[j] = this->listStaff[j + 1];
@@ -179,6 +181,7 @@ void Manager::remove()
         {
             if(this->listUser[i]->getCode() == code)
             {
+                this->numOfUser--;
                 countu++;
                 for(int j = i; j < this->numOfUser - 1; j++)
                     this->listUser[j] = this->listUser[j + 1];
@@ -324,7 +327,7 @@ void Manager::edit()
     if(count > 0)
         cout << "EDIT SUCCESSFULLY!\n";
     else
-        cout << "NO USER MATCH !";
+        cout << "NO USER MATCH !\n";
 }
 
 #endif
