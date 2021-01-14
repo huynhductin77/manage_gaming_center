@@ -2,10 +2,13 @@
 #define MANAGER_H
 #include<iostream>
 #include<string>
+#include<fstream>
 #include "Computer.h"
 #include "User.h"
 #include "Staff.h"
 using namespace std;
+
+fstream file;
 
 class Manager
 {
@@ -24,7 +27,7 @@ public:
     void remove();
     void search();
     void edit();
-};
+};                                                                                                       // class
 
 Manager::Manager(int numOfStaff = 0, int numOfUser = 0, int numOfComputer = 0)
 {
@@ -34,23 +37,86 @@ Manager::Manager(int numOfStaff = 0, int numOfUser = 0, int numOfComputer = 0)
     this->listComputer = new Computer*[numOfComputer];
     this->listUser = new User*[numOfUser];
     this->listStaff = new Staff*[numOfStaff];
-}
+}                                                                                            // default constructor
+
 Manager::~Manager(){}
 void Manager::menu()
 {
-    cout << "------MENU----------" << endl;
-    cout << "1. display" << endl;
-    cout << "2. add " << endl;
-    cout << "3. remove " << endl;
-    cout << "4. search " << endl;
-    cout << "5. edit " << endl;
-    cout << "0. exit " << endl;
-    cout << "+ choose your option : " << endl;
-}
+    system("figlet -f /mnt/d/figlet-fonts/smslant.flf \"                       CHANAS GAMING CENTER\" -w 200| lolcat --animate -d 5");
+    cout << "\t\t\t\t\t\t\t\t------MENU----------" << endl;
+    cout << "\t\t\t\t\t\t\t\t1. display" << endl;
+    cout << "\t\t\t\t\t\t\t\t2. add " << endl;
+    cout << "\t\t\t\t\t\t\t\t3. remove " << endl;
+    cout << "\t\t\t\t\t\t\t\t4. search " << endl;
+    cout << "\t\t\t\t\t\t\t\t5. edit " << endl;
+    cout << "\t\t\t\t\t\t\t\t0. exit " << endl;
+    cout << "\t\t\t\t\t\t\t\t+ choose your option : " << endl;
+}                                                                                            // menu
+
 void Manager::loop()
 {
+    file.open("data/computer.dat", ios::in );                                      // read computer's data from file
+    int i = 0;
+    string com1, com2, com3, staff1, staff2, staff3, staff4, user1, user2, user3;   // temporary var
+    long user0, staff0;
+    if(file.peek() != -1)                                                            // check empty file
+        if(file.good())                                                              // check good file
+            while(!file.eof()) {                                                     // check end file
+                listComputer[numOfComputer] = new Computer();
+                numOfComputer++;
+                getline(file, com1);
+                getline(file, com2);
+                getline(file, com3);  
+                listComputer[i]->setCode(com1);
+                listComputer[i]->setStatus(com2);
+                listComputer[i]->setStartDay(com3); 
+                i++;
+            }
+    file.close();
+    file.open("data/staff.dat", ios::in );                                                       // read staff's data from file
+    i = 0;
+    if(file.peek() != -1)                                                                         // check empty file
+        if(file.good())                                                                           // check good file
+            while(!file.eof()) {                                                                  // check end file
+                listStaff[numOfStaff] = new Staff;
+                numOfStaff++;
+                string tmp;
+                getline(file, tmp);
+                staff0 = atoi(tmp.c_str());
+                getline(file, staff1);
+                getline(file, staff2);
+                getline(file, staff3);
+                getline(file, staff4);
+                listStaff[i]->setCode(staff2);
+                listStaff[i]->setName(staff1);
+                listStaff[i]->setSalary(staff0);
+                listStaff[i]->setShift(staff3);
+                listStaff[i]->setStartDay(staff4);
+                i++;
+            }
+    file.close();
+    file.open("data/user.dat", ios::in );                                              // read user's data from file
+    i = 0;
+    if(file.peek() != -1)                                                               // check empty file
+        if(file.good())                                                                 // check good file 
+            while(!file.eof()) {                                                        // check end file
+                listUser[numOfUser] = new User;
+                numOfUser++;
+                string tmp;
+                getline(file, tmp);
+                user0 = atoi(tmp.c_str());
+                getline(file, user2);
+                getline(file, user1);
+                getline(file, user3);
+                listUser[i]->setBalance(user0);
+                listUser[i]->setCode(user1);
+                listUser[i]->setName(user2);
+                listUser[i]->setStartDay(user3);
+                i++;
+            }
+    file.close();
     bool check = true;
-    while(check)
+    while(check) // MAIN LOOP
     {
         int choose;
         menu();
@@ -72,61 +138,97 @@ void Manager::loop()
         case 5:
             edit();
             break;
-        case 0:
+        case 0: {
             check = false;
+            string com11, com12, com13, staff11, staff12, staff13,staff14, user11, user12, user13;     // temporary var
+            long staff10, user10;
+            file.open("data/computer.dat", ios::out | ios::trunc );                    // write computer's data to file
+            for(int i = 0; i < numOfComputer; i++) {
+                com11 = listComputer[i]->getCode();
+                com12 = listComputer[i]->getStatus();
+                com13 = listComputer[i]->getStartDay();
+                if(i != 0) file << endl;
+                file << com11 << endl << com12 << endl << com13;
+            }
+            file.close();
+            file.open("data/staff.dat", ios::out | ios::trunc);                        // write staff's data to file
+            for(int i = 0; i < numOfStaff; i++) {
+                staff11 = listStaff[i]->getName();
+                staff12 = listStaff[i]->getCode();
+                staff13 = listStaff[i]->getShift();
+                staff14 = listStaff[i]->getStartDay();
+                staff10 = listStaff[i]->getSalary();
+                if(i != 0) file << endl;
+                file << staff10 << endl << staff11 << endl << staff12 << endl << staff13 << endl<< staff14;
+            }
+            file.close();
+            file.open("data/user.dat", ios::out | ios::trunc );                        // write user's data to file
+            for(int i = 0; i < numOfUser; i++) {
+                user11 = listUser[i]->getName();
+                user12 = listUser[i]->getCode();
+                user13 = listUser[i]->getStartDay();
+                user10 = listUser[i]->getBalance();
+                if(i != 0) file << endl;
+                file << user10 << endl << user11 << endl << user12 << endl << user13;
+            }
+            file.close();
             break;
+            }
         default:
-            system("cls");
-            cout << "wrong option !!" << endl;
+            system("clear");
+            cout << "\t\t\t\t\t\t\t\twrong option !!" << endl;
             break;
         }
     }
-}
+}                                                                                               // loop
+
 void Manager::display()
 {
-    system("cls");
-    cout << "COMPUTER : " << numOfComputer << endl;
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\tCOMPUTER : " << numOfComputer << endl;
     for(int i = 0; i < numOfComputer; i++)
         {
             cout << "\t";
             listComputer[i]->display();
         }
-    cout << "USER : " << numOfUser << endl;
+    cout << "\t\t\t\t\t\t\t\tUSER : " << numOfUser << endl;
     for(int i = 0; i < numOfUser; i++)
     {
         cout << "\t";
         listUser[i]->display();
     }
-    cout << "STAFF : " << numOfStaff << endl;
+    cout << "\t\t\t\t\t\t\t\tSTAFF : " << numOfStaff << endl;
     for(int i = 0; i < numOfStaff; i++)
     {
         cout << "\t";
         listStaff[i]->display();
     }
-    system("pause");
-    system("cls");
-}
+    system("sleep 2");
+    system("clear");
+}                                                                                                   // display
+
 void Manager::add()
 {
-    system("cls");
-    cout << "1. Computer\n";
-    cout << "2. User\n";
-    cout << "3. Staff\n";
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\t1. Computer\n";
+    cout << "\t\t\t\t\t\t\t\t2. User\n";
+    cout << "\t\t\t\t\t\t\t\t3. Staff\n";
     int choose;
     cin >> choose;
-    if(choose == 1) // add computer
+    system("clear");
+    if(choose == 1)                                                                                 // add computer
     {
         this->numOfComputer += 1;
         this->listComputer[this->numOfComputer - 1] = new Computer();
         this->listComputer[this->numOfComputer - 1]->input();
     }
-    else if(choose == 2)
+    else if(choose == 2)                                                                            // add user
     {
         this->numOfUser += 1;
         this->listUser[this->numOfUser - 1] = new User();
         this->listUser[this->numOfUser - 1]->input();
     }
-    else if(choose == 3)
+    else if(choose == 3)                                                                            // add staff
     {
         this->numOfStaff += 1;
         this->listStaff[this->numOfStaff - 1] = new Staff();
@@ -134,24 +236,26 @@ void Manager::add()
     }
     else
     {
-        cout << "wrong option!\n";
-        system("pause");
+        cout << "\t\t\t\t\t\t\t\twrong option!\n";
+        system("sleep 2");
     }
-    system("cls");
-    cout << "ADD SUCCESSFULLY! \n";
-}
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\tADD SUCCESSFULLY! \n";
+}                                                                                                   // add
+
 void Manager::remove()
 {
-    system("cls");
-    cout << "1. remove computer \n";
-    cout << "2. remove people \n";
-    cout << "Enter your optioon : \n";
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\t1. remove computer \n";
+    cout << "\t\t\t\t\t\t\t\t2. remove people \n";
+    cout << "\t\t\t\t\t\t\t\tEnter your optioon : \n";
     int choose; cin >> choose;
+    system("clear");
     int countc = 0, counts = 0, countu = 0;
-    if(choose == 1)
+    if(choose == 1)                                                                             // remove computer
     {
-        cout << "Enter the code : \n";
-        string code; cin >> code;
+        cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
+        string code; getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
@@ -163,10 +267,10 @@ void Manager::remove()
             }   
         }
     }
-    else if(choose == 2)
+    else if(choose == 2)                                                                         // remove people
     {
-        cout << "Enter the code : \n";
-        string code; cin >> code;
+        cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
+        string code;  getline(cin, code);
         for(int i = 0; i < numOfStaff; i++)
         {
             if(this->listStaff[i]->getCode() == code)
@@ -190,107 +294,90 @@ void Manager::remove()
     }
     else
     {
-        cout << "wrong option!\n";
-        system("pause");
+        cout << "\t\t\t\t\t\t\t\twrong option!\n";
+        system("sleep 2");
     }
-    system("cls");
+    system("clear");
     if( countc == 0)
     {
-        cout << "Remove " << counts << " staff(s), " << countu << " user(s) out of system!\n";
+        cout << "\t\t\t\t\t\t\tRemove " << counts << " staff(s), " << countu << " user(s) out of system!\n";
     }
     else
-        cout << "Remove " << countc << " computer out of system!\n";    
-}
+        cout << "\t\t\t\t\t\t\tRemove " << countc << " computer out of system!\n";    
+}                                                                                                      // remove
+
 void Manager::search()
 {
-    system("cls");
-    cout << "1. computer search\n";
-    cout << "2. people search\n";
-    cout << "Enter your option : \n";
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\t1. computer search\n";
+    cout << "\t\t\t\t\t\t\t\t2. people search\n";
+    cout << "\t\t\t\t\t\t\t\tEnter your option : \n";
     int choose; cin >> choose;
+    system("clear");
     if(choose == 1)
     {
-        cout << "Enter the code : \n";
-        string code; cin >> code;
+        int count = 0;
+        cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
+        string code; getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
             {
-                this->listComputer[i]->display();                
+                this->listComputer[i]->display();   
+                count++;             
             }
         }
+        if(count == 0) cout << "\t\t\t\t\t\t\t\tnot found !\n";
     }
     else if(choose == 2)
     {
-        cout << "1. By code\n";
-        cout << "2. By Name\n";
-        cout << "Enter your option : \n";
-        int choo; cin >> choo;
-        if(choo == 1)
+        int count = 0;
+        cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
+        string code; getline(cin, code);
+        for(int i = 0; i < numOfUser; i++)
         {
-            cout << "Enter the code : \n";
-            string code; cin >> code;
-            for(int i = 0; i < numOfUser; i++)
+            if(this->listUser[i]->getCode() == code)
             {
-                if(this->listUser[i]->getCode() == code)
-                {
-                    this->listUser[i]->display();       
-                }
-            }
-            for(int i = 0; i < numOfUser; i++)
-            {
-                if(this->listStaff[i]->getCode() == code)
-                {
-                    this->listStaff[i]->display();       
-                }
+                this->listUser[i]->display();  
+                count++;     
             }
         }
-        else if(choo == 2)
+        for(int i = 0; i < numOfUser; i++)
         {
-            cout << "Enter the name : \n";
-            string name; cin >> name;
-            for(int i = 0; i < numOfUser; i++)
+            if(this->listStaff[i]->getCode() == code)
             {
-                if(listUser[i]->getCode() == name)
-                    listUser[i]->display();       
-            }
-            for(int i = 0; i < numOfUser; i++)
-            {
-                if(listStaff[i]->getCode() == name)
-                    listStaff[i]->display();       
+                this->listStaff[i]->display();      
+                count++; 
             }
         }
-        else
-        {
-            cout << "wrong option!\n";
-        }
-        
+        if(count == 0) cout << "\t\t\t\t\t\t\t\tnot found !\n";
     }
     else{
-        cout << "wrong option!\n";
-        system("pause");
+        cout << "\t\t\t\t\t\t\t\twrong option!\n";
+        system("sleep 2");
     }
-    
-    system("pause");
-    system("cls");
-}
+    system("sleep 2");
+    system("clear");
+}                                                                                                            // search
+
 void Manager::edit()
 {
-    system("cls");
-    cout << "1. edit computer's detail \n";
-    cout << "2. edit people's detail \n";
-    cout << "Enter your option : \n";
+    system("clear");
+    cout << "\t\t\t\t\t\t\t\t1. edit computer's detail \n";
+    cout << "\t\t\t\t\t\t\t\t2. edit people's detail \n";
+    cout << "\t\t\t\t\t\t\t\tEnter your option : \n";
     int choose, count = 0; cin >> choose;
+    system("clear");
     if(choose == 1)
     {
         string code;
-        cout << "Enter code : \n"; cin >> code;
+        cout << "\t\t\t\t\t\t\t\tEnter code : \n"; getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
             {
                 count++;
-                cout << "Enter new detail : \n";
+                cout << "\t\t\t\t\t\t\t\tEnter new detail : \n";
                 this->listComputer[i]->edit();
             }
         }
@@ -298,13 +385,13 @@ void Manager::edit()
     else if(choose == 2)
     {
         string code;
-        cout << "Enter code : \n"; cin >> code;
+        cout << "\t\t\t\t\t\t\t\tEnter code : \n"; getline(cin, code);
         for(int i = 0; i < numOfStaff; i++)
         {
             if(this->listStaff[i]->getCode() == code)
             {
                 count++;
-                cout << "Enter new detail : \n";
+                cout << "\t\t\t\t\t\t\t\tEnter new detail : \n";
                 this->listStaff[i]->edit();
             }
         }
@@ -313,21 +400,21 @@ void Manager::edit()
             if(this->listUser[i]->getCode() == code)
             {
                 count++;
-                cout << "Enter new detail : \n";
+                cout << "\t\t\t\t\t\t\t\tEnter new detail : \n";
                 this->listUser[i]->edit();
             }
         }
     }
     else
     {
-        cout << "wrong option!\n";
-        system("pause");
+        cout << "\t\t\t\t\t\t\t\twrong option!\n";
+        system("sleep 2");
     }
-    system("cls");
+    system("clear");
     if(count > 0)
-        cout << "EDIT SUCCESSFULLY!\n";
+        cout << "\t\t\t\t\t\t\t\tEDIT SUCCESSFULLY!\n";
     else
-        cout << "NO USER MATCH !\n";
-}
+        cout << "\t\t\t\t\t\t\t\tNO USER MATCH !\n";
+}                                                                                                                // edit
 
 #endif
