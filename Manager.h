@@ -55,6 +55,7 @@ void Manager::menu()
 
 void Manager::loop()
 {
+    system("clear");
     file.open("data/computer.dat", ios::in );                                      // read computer's data from file
     int i = 0;
     string com1, com2, com3, staff1, staff2, staff3, staff4, user1, user2, user3;   // temporary var
@@ -218,21 +219,69 @@ void Manager::add()
     system("clear");
     if(choose == 1)                                                                                 // add computer
     {
-        this->numOfComputer += 1;
-        this->listComputer[this->numOfComputer - 1] = new Computer();
-        this->listComputer[this->numOfComputer - 1]->input();
+        bool check = true;
+        int count;
+        this->listComputer[this->numOfComputer] = new Computer();
+        while(check) {
+            count = 0;
+            this->listComputer[this->numOfComputer]->input();
+            for(int i = 0; i < numOfComputer; i++) {
+                if(this->listComputer[this->numOfComputer]->getCode() == listComputer[i]->getCode())
+                    count++;
+            }
+            if(count == 0) {
+                this->numOfComputer += 1;
+                check = false;
+            }
+            else
+            {
+                cout << "\t\t\t\t\t\t\tInvalid Code";
+            }           
+        }
     }
     else if(choose == 2)                                                                            // add user
     {
-        this->numOfUser += 1;
-        this->listUser[this->numOfUser - 1] = new User();
-        this->listUser[this->numOfUser - 1]->input();
+        bool check = true;
+        int count;
+        this->listUser[this->numOfUser] = new User();
+        while(check) {
+            count = 0;
+            this->listUser[this->numOfUser]->input();
+            for(int i = 0; i < numOfUser; i++) {
+                if(this->listUser[this->numOfUser]->getCode() == listUser[i]->getCode())
+                    count++;
+            }
+            if(count == 0) {
+                this->numOfUser += 1;
+                check = false;
+            }
+            else
+            {
+                cout << "\t\t\t\t\t\t\tInvalid Code";
+            }           
+        }
     }
     else if(choose == 3)                                                                            // add staff
     {
-        this->numOfStaff += 1;
-        this->listStaff[this->numOfStaff - 1] = new Staff();
-        this->listStaff[this->numOfStaff - 1]->input();
+        bool check = true;
+        int count;
+        this->listStaff[this->numOfStaff] = new Staff();
+        while(check) {
+            count = 0;
+            this->listStaff[this->numOfStaff]->input();
+            for(int i = 0; i < numOfStaff; i++) {
+                if(this->listStaff[this->numOfStaff]->getCode() == listStaff[i]->getCode())
+                    count++;
+            }
+            if(count == 0) {
+                this->numOfStaff += 1;
+                check = false;
+            }
+            else
+            {
+                cout << "\t\t\t\t\t\t\tInvalid Code";
+            }           
+        }
     }
     else
     {
@@ -256,6 +305,7 @@ void Manager::remove()
     {
         cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
         string code; getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
@@ -271,6 +321,7 @@ void Manager::remove()
     {
         cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
         string code;  getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfStaff; i++)
         {
             if(this->listStaff[i]->getCode() == code)
@@ -281,7 +332,7 @@ void Manager::remove()
                     this->listStaff[j] = this->listStaff[j + 1];
             }   
         }
-        for(int i = 0; i < numOfStaff; i++)
+        for(int i = 0; i < numOfUser; i++)
         {
             if(this->listUser[i]->getCode() == code)
             {
@@ -319,6 +370,7 @@ void Manager::search()
         int count = 0;
         cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
         string code; getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
@@ -334,6 +386,7 @@ void Manager::search()
         int count = 0;
         cout << "\t\t\t\t\t\t\t\tEnter the code : \n";
         string code; getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfUser; i++)
         {
             if(this->listUser[i]->getCode() == code)
@@ -342,7 +395,7 @@ void Manager::search()
                 count++;     
             }
         }
-        for(int i = 0; i < numOfUser; i++)
+        for(int i = 0; i < numOfStaff; i++)
         {
             if(this->listStaff[i]->getCode() == code)
             {
@@ -372,6 +425,7 @@ void Manager::edit()
     {
         string code;
         cout << "\t\t\t\t\t\t\t\tEnter code : \n"; getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfComputer; i++)
         {
             if(this->listComputer[i]->getCode() == code)
@@ -386,6 +440,7 @@ void Manager::edit()
     {
         string code;
         cout << "\t\t\t\t\t\t\t\tEnter code : \n"; getline(cin, code);
+        getline(cin, code);
         for(int i = 0; i < numOfStaff; i++)
         {
             if(this->listStaff[i]->getCode() == code)
@@ -395,7 +450,7 @@ void Manager::edit()
                 this->listStaff[i]->edit();
             }
         }
-        for(int i = 0; i < numOfStaff; i++)
+        for(int i = 0; i < numOfUser; i++)
         {
             if(this->listUser[i]->getCode() == code)
             {
