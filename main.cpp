@@ -8,7 +8,4 @@ int main()
     return 0;
 }
 
-// fix string (OK)
-// remove (OK)
-// edit (OK)
-// search
+// code trung

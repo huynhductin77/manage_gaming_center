@@ -1,6 +1,7 @@
 #ifndef STAFF_H
 #define STAFF_H
 #include "People.h"
+#include "str.h"
 #include <iostream>
 #include <string>
 #include <ctype.h>
@@ -20,51 +21,15 @@ public:
     void input();
     string getCode();
     string getName();
+    string getStartDay();
+    string getShift();
+    long getSalary();
+    void setCode(string code);
+    void setName(string name);
+    void setStartDay(string startDay);
+    void setShift(string shift);
+    void setSalary(long salary);
 };
-
-string delSpaceChar(string& result)
-{
-    for(int i = result.length() - 1; i >= 0; i--) //del space character at the tail of string 
-    {
-        if(result.at(i) ==  ' ')
-        {
-            result.pop_back();
-        }
-        else
-            break;
-    }
-    for(int i = 0; i < result.length(); i++) //del space character at the head of string 
-    {
-        if(result.at(i) ==  ' ')
-        {
-            i--;
-            result = result.substr(1, result.length() - 1);
-        }
-        else
-            break;
-    }
-    return result;
-}
-string formatStr(string& result)
-{
-    delSpaceChar(result);
-    if(!isupper(result.at(0)))
-    {
-        result.at(0) = toupper(result.at(0));
-    } // first character
-    for(int i = 0; i < result.length() - 1; i++)
-    {
-        if(result.at(i) == ' ' && islower(result.at(i+1)))
-            result.at(i+1) = toupper(result.at(i+1));
-    } // " *" --> upper *
-    for(int i = 0; i < result.length() - 1; i++)
-    {
-        if(isalpha(result.at(i)) && isupper(result.at(i+1)))
-            result.at(i+1) = tolower(result.at(i+1));
-    } // "**" --> lower * 2nd
-    cout << result;
-    return result;
-}
 Staff::Staff(string name = "none", string code = "none", string startDay = "1/1/1990", string shift = "none", long salary = 0)
 : People(name, startDay, code)
 {
@@ -99,14 +64,16 @@ void Staff::edit()
 }
 void Staff::input()
 {
-    cout << "Code : \n"; cin >> this->code;
-    cout << "Start Day : \n"; cin >> this->startDay;
+    getline(cin, code);
+    cout << "Code : \n"; getline(cin, code);
+    cout << "Start Day : \n"; getline(cin, startDay);
     cout << "Name : \n"; 
-    string name; cin >> name;
+    string name; getline(cin, name);
     formatStr(name);
     this->name = name;
     cout << "Salary : \n"; cin >> this->salary;
-    cout << "Shift : \n"; cin >> this->shift;
+    cout << "Shift : \n"; getline(cin, shift);
+    getline(cin, shift);
 }
 string Staff::getCode()
 {
@@ -116,5 +83,28 @@ string Staff::getName()
 {
     return this->name;
 }
-
+string Staff::getStartDay() {
+    return this->startDay;
+};
+string Staff::getShift() {
+    return this->shift;
+};
+long Staff::getSalary() {
+    return this->salary;
+};
+void Staff::setCode(string code) {
+    this->code = code;
+};
+void Staff::setName(string name) {
+    this->name = name;
+};
+void Staff::setStartDay(string startDay) {
+    this->startDay = startDay;
+};
+void Staff::setShift(string shift) {
+    this->shift = shift;
+};
+void Staff::setSalary(long salary) {
+    this->salary = salary;
+};
 #endif

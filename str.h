@@ -40,7 +40,6 @@ string formatStr(string& result)
         if(isalpha(result.at(i)) && isupper(result.at(i+1)))
             result.at(i+1) = tolower(result.at(i+1));
     } // "**" --> lower * 2nd
-    cout << result;
     return result;
 }
 #endif
